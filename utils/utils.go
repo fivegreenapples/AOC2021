@@ -19,17 +19,24 @@ func LinesAsInts(in string) []int {
 }
 
 func CsvToInts(in string) []int {
-	in = strings.TrimSpace(in)
-	in = strings.Trim(in, ",")
-	bits := strings.Split(in, ",")
-	return StringsToInts(bits)
+	return CsvToIntsSep(in, ",")
 }
 func CsvToStrings(in string) []string {
+	return CsvToStringsSep(in, ",")
+}
+func CsvToIntsSep(in string, sep string) []int {
 	in = strings.TrimSpace(in)
-	in = strings.Trim(in, ",")
-	bits := strings.Split(in, ",")
+	in = strings.Trim(in, sep)
+	bits := strings.Split(in, sep)
+	return StringsToInts(bits)
+}
+func CsvToStringsSep(in string, sep string) []string {
+	in = strings.TrimSpace(in)
+	in = strings.Trim(in, sep)
+	bits := strings.Split(in, sep)
 	return bits
 }
+
 func MultilineCsvToInts(in string, sep string) [][]int {
 	ret := [][]int{}
 	for _, l := range Lines(in) {
@@ -68,6 +75,9 @@ func StringsToInts(inStrings []string) []int {
 	ints := []int{}
 	for _, in := range inStrings {
 		in := strings.TrimSpace(in)
+		if in == "" {
+			continue
+		}
 		thisInt, err := strconv.Atoi(in)
 		if err != nil {
 			panic(err)
