@@ -106,6 +106,14 @@ func (c Coord) Adjacents() []Coord {
 	out[7] = c.Add(DownRight)
 	return out
 }
+func (c Coord) OrthAdjacents() []Coord {
+	out := make([]Coord, 4)
+	out[0] = c.Add(Up)
+	out[1] = c.Add(Left)
+	out[2] = c.Add(Right)
+	out[3] = c.Add(Down)
+	return out
+}
 
 func (c Coord) IsInside(min, max Coord) bool {
 	return c.X >= min.X && c.X <= max.X && c.Y >= min.Y && c.Y <= max.Y
